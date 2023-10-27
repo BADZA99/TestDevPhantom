@@ -6,7 +6,7 @@ import Select from '@mui/material/Select';
 
 export default function Influenceurs() {
   return (
-    <div className='w-[82%] h-[200px] absolute  top-16 left-64'>
+    <div className='w-[80%] h-[200px] absolute  top-16 left-64'>
         <h2 className='text-lg font-bold text-black mx-7 mb-3'>Influenceurs</h2>
 
         <div className='w-[95%] h-[160px] bg-white mx-auto flex flex-col rounded-lg p-3'>

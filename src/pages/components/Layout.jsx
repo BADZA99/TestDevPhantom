@@ -1,4 +1,4 @@
-import {LuLayoutDashboard} from 'react-icons/lu';
+
 import {GrCycle} from 'react-icons/gr';
 import {BiLogOut} from 'react-icons/bi';
 import {MdOutlineCampaign,MdGroups2,MdOutlineDashboard,MdOutlineEventNote,MdSettings} from 'react-icons/md';
@@ -6,10 +6,29 @@ import userImg from './me.png'
 import Image from 'next/image'
 import Influenceurs from './Influenceurs';
 import TabInfluenceurs from './TabInfluenceurs';
+import { useEffect, useState } from 'react';
 
 
 
 export default function Layout() {
+   const [todos, setTodos] = useState([]);
+  const [loading, setLoading] = useState(true);
+   useEffect(() => {
+    async function fetchTodos() {
+      try {
+        const response = await fetch('/api/todos');
+        const data = await response.json();
+        setTodos(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      }
+    }
+
+    fetchTodos();
+  }, []);
+  // console.log(todos)
   return (
     <div className="relative w-[100%] h-[100%] bg-[#f1f1f1]">
         {/* topbar */}
@@ -50,7 +69,7 @@ export default function Layout() {
 
     </div>
     <Influenceurs/>
-    <TabInfluenceurs/>
+    <TabInfluenceurs data={todos} loading={loading}/>
 
       
     </div>
