@@ -1,10 +1,20 @@
+"use client"
 import { Button } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import SearchInput from './SearchInput';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
-export default function Influenceurs() {
+export default function Influenceurs({ data, searchText, setSearchText }) {
+  //  const [filteredData, setFilteredData] = useState(data);
+
+  // const handleSearch = () => {
+  //   // Filtrer les données en fonction de searchText
+  //   const filtered = data.filter((row) =>
+  //     row.title.toLowerCase().includes(searchText.toLowerCase())
+  //   );
+  //   setFilteredData(filtered);
+  // };
   return (
     <div className='w-[80%] h-[200px] absolute  top-16 left-64'>
         <h2 className='text-lg font-bold text-black mx-7 mb-3'>Influenceurs</h2>

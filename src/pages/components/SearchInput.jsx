@@ -1,9 +1,9 @@
+"use client"
 import { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-// import useSearchStore from './store'; 
-// import { create } from 'zustand';
+import { useSearchStore } from '@/store';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -42,14 +42,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 export default function SearchInput() {
-  //  const searchText = useSearchStore((state) => state.searchText);
-  // const setSearchText = useSearchStore((state) => state.setSearchText);
-  const [searchText, setSearchText] = useState("");
+   const searchText = useSearchStore((state) => state.searchText);
+  const setSearchText = useSearchStore((state) => state.setSearchText);
+  // const [searchText, setSearchText] = useState("");
 
   const handleSearchChange = (event) => {
     setSearchText(event.target.value); // Met à jour le texte de recherche
   };
-  // console.log(searchText)
+  console.log(searchText)
   return (
     <>
     <Search>
@@ -57,7 +57,7 @@ export default function SearchInput() {
         <SearchIcon  width={10}/>
       </SearchIconWrapper>
       <StyledInputBase
-        placeholder="Nom de l'influencuer"
+        placeholder="title de l'influencuer"
         inputProps={{ 'aria-label': 'search' }}
         value={searchText}
         onChange={handleSearchChange}

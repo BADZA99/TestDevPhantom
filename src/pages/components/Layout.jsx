@@ -7,10 +7,13 @@ import Image from 'next/image'
 import Influenceurs from './Influenceurs';
 import TabInfluenceurs from './TabInfluenceurs';
 import { useEffect, useState } from 'react';
+import { useSearchStore } from '@/store';
+
 
 
 
 export default function Layout() {
+  const searchText = useSearchStore((state) => state.searchText);
    const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
    useEffect(() => {
@@ -69,7 +72,7 @@ export default function Layout() {
 
     </div>
     <Influenceurs/>
-    <TabInfluenceurs data={todos} loading={loading}/>
+    <TabInfluenceurs data={todos} loading={loading} searchText={searchText}/>
 
       
     </div>
