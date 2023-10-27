@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-
+import { useRouter } from 'next/router';
 import MoonLoader from "react-spinners/MoonLoader";
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
@@ -14,7 +14,11 @@ export default function TabInfluenceurs({ data, loading }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  console.log(open)
+  const router=useRouter();
+ const handleRowClick = (id) => {
+  // Naviguer vers la page de détails avec l'ID
+  router.push(`/Details?id=${id}`);
+};
 
   const columns = [
     {
@@ -88,7 +92,7 @@ export default function TabInfluenceurs({ data, loading }) {
             </thead>
             <tbody>
               {rows.map((row) => (
-                <tr key={row.id} className="border-b cursor-pointer">
+                <tr key={row.id} className="border-b cursor-pointer" onClick={() => handleRowClick(row.id)}>
                   {columns.map((column) => (
                     <td key={column.field} className="px-4 py-2">
                       {column.renderCell ? (

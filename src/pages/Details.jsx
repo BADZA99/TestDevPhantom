@@ -1,39 +1,33 @@
+// pages/Details.js
 
-import {GrCycle} from 'react-icons/gr';
-import {BiLogOut} from 'react-icons/bi';
-import {MdOutlineCampaign,MdGroups2,MdOutlineDashboard,MdOutlineEventNote,MdSettings} from 'react-icons/md';
-import userImg from '../../../public/myprofile.jpeg'
-import Image from 'next/image'
-import Influenceurs from './Influenceurs';
-import TabInfluenceurs from './TabInfluenceurs';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import {MdOutlineCampaign,MdGroups2,MdOutlineDashboard,MdOutlineEventNote,MdSettings} from 'react-icons/md';
+import { GrCycle } from 'react-icons/gr';
+import { BiLogOut } from 'react-icons/bi';
+import userImg from '../../public/myprofile.jpeg'
+import Image from 'next/image'
+import Link from 'next/link';
 
+export default function Details() {
+  const router = useRouter();
+  const { id } = router.query; // Récupère l'ID depuis l'URL
 
+  const [item, setItem] = useState({}); // Pour stocker les données de l'API
 
-export default function Layout() {
-   const [todos, setTodos] = useState([]);
-  const [loading, setLoading] = useState(true);
-   useEffect(() => {
-    async function fetchTodos() {
-      try {
-        const response = await fetch('/api/todos');
-        const data = await response.json();
-        setTodos(data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setLoading(false);
-      }
-    }
+  // Utilisez l'ID pour appeler l'API et obtenir les données
+  useEffect(() => {
+    // Vous devez remplacer l'URL de l'API par la vôtre
+    fetch(`https://jsonplaceholder.typicode.com/todos/${id}`)
+      .then((response) => response.json())
+      .then((data) => setItem(data));
+  }, [id]);
 
-    fetchTodos();
-  }, []);
-  // console.log(todos)
   return (
     <div className="relative w-[100%] h-[100%] bg-[#f1f1f1]">
-        {/* topbar */}
+             {/* topbar */}
     <div className="w-[85%] absolute top-0 right-0 h-[60px] bg-white text-black justify-end text-end p-3 items-center ">
-        <div className="flex space-x-2 items-center justify-between  w-[150px] h-[50px]  ml-auto">
+        <div className="flex space-x-2 items-center justify-between   w-[150px] h-[50px]  ml-auto">
           <span className=' text-sm'>Jean david</span>
           <Image width={40} height={40} src={userImg} alt="user image" className='rounded-full cover'/>
         </div>
@@ -68,10 +62,12 @@ export default function Layout() {
         </ul>
 
     </div>
-    <Influenceurs/>
-    <TabInfluenceurs data={todos} loading={loading}/>
-
-      
+    <div className='w-[80%] h-[200px] absolute  top-24 left-64 bg-white text-black rounded-xl'>
+      <h1 className='text-xl p-3'>Détails de l'élément avec l'ID {id}</h1>
+      <p className='text-lg p-3 font-bold'>Title: {item.title}</p>
+      <p className='text-lg p-3 font-bold'>Completed: {item.completed ? 'False' : 'True'}</p>
+      <Link href="/" className='absolute right-16 top-4 text-xl font-bold cursor-pointer'>←Back</Link>
     </div>
-  )
+    </div>
+  );
 }
