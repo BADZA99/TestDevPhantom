@@ -55,11 +55,11 @@ export default function TabInfluenceurs({ data, loading,searchText }) {
   }));
 
     // Filtrer les données en fonction de searchText
-    const filteredData = searchText
-    ? rows.filter((row) =>
-        row.title.toLowerCase().includes(searchText.toLowerCase())
-      )
-    : rows;
+    // const filteredData = searchText
+    // ? rows.filter((row) =>
+    //     row.title.toLowerCase().includes(searchText.toLowerCase())
+    //   )
+    // : rows;
 
   useEffect(() => {
     setSelectedRowsCount(selectedRows.length);
@@ -77,10 +77,10 @@ export default function TabInfluenceurs({ data, loading,searchText }) {
     <div className="h-[] w-[76%] absolute p-3 top-72 left-72 bg-white text-black text-sm">
       <div className="flex justify-between w-[100%] mb-3">
         <h2 className="text-xl font-bold text-black">
-          Liste Influenceurs <span>({data.length})</span>
+          Liste Elements Total <span>({data.length})</span>
         </h2>
-        <Button variant="contained" className="bg-green-600 hover-bg-green-600 rounded-lg" onClick={handleOpen}>
-          <span>({selectedRowsCount})</span>Inviter
+        <Button variant="contained" className="bg-green-600 hover:bg-green-600 rounded-lg text-sm" onClick={handleOpen}>
+          <span>({selectedRowsCount}) </span>Inviter
         </Button>
       </div>
       {loading ? (
@@ -88,7 +88,7 @@ export default function TabInfluenceurs({ data, loading,searchText }) {
       ) : (
         <table className="min-w-full bg-white w-[100%] border-4">
           <thead>
-            <tr className="bg-gray-400">
+            <tr className="bg-slate-400">
               {columns.map((column) => (
                 <th key={column.field} className="px-4 py-2 text-left font-bold">
                   {column.headerName}
@@ -97,7 +97,7 @@ export default function TabInfluenceurs({ data, loading,searchText }) {
             </tr>
           </thead>
           <tbody>
-            {filteredData.map((row) => (
+            {rows.map((row) => (
               <tr key={row.id} className="border-b cursor-pointer">
                 {columns.map((column) => (
                   <td key={column.field} className="px-4 py-2">
@@ -135,7 +135,7 @@ export default function TabInfluenceurs({ data, loading,searchText }) {
           </tbody>
         </table>
       )}
-      <Button variant="contained" className="bg-green-600 hover-bg-green-600 rounded-lg" onClick={handleOpen}>
+      <Button variant="contained" className="bg-green-600 hover:bg-green-600 rounded-lg" onClick={handleOpen}>
         <span>({selectedRowsCount})</span>Inviter
       </Button>
       {open && <BasicModal handleClose={handleClose} open={open} />}
@@ -203,7 +203,7 @@ const BasicModal = ({ handleClose, open }) => {
             id="Cout par action"
             placeholder=" Votre Budget"
           />
-          <Button variant="contained" className="bg-green-700 hover-bg-green-600 mr-auto rounded-xl mt-4">
+          <Button variant="contained" className="bg-green-700 hover:bg-green-600 mr-auto rounded-xl mt-4">
             Envoyer invitation
           </Button>
         </form>

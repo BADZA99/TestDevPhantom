@@ -5,16 +5,22 @@ import SearchInput from './SearchInput';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
-export default function Influenceurs({ data, searchText, setSearchText }) {
-  //  const [filteredData, setFilteredData] = useState(data);
-
-  // const handleSearch = () => {
-  //   // Filtrer les données en fonction de searchText
-  //   const filtered = data.filter((row) =>
-  //     row.title.toLowerCase().includes(searchText.toLowerCase())
-  //   );
-  //   setFilteredData(filtered);
-  // };
+export default function Influenceurs({ data, searchText, setTodos,initialData }) {
+   const [filteredData, setFilteredData] = useState(data);
+   // Filtrer les données en fonction de searchText
+    if (searchText === '') {
+      // Réinitialiser filteredData à sa valeur d'origine lorsque searchText est vide
+      setTodos(initialData);
+    }
+  const handleSearch = () => {
+   if(searchText != '') {
+      // Filtrer les données en fonction de searchText
+      const filtered = data.filter((row) =>
+        row.title.toLowerCase().includes(searchText.toLowerCase())
+      );
+      setTodos(filtered);
+    }
+  };
   return (
     <div className='w-[80%] h-[200px] absolute  top-16 left-64'>
         <h2 className='text-lg font-bold text-black mx-7 mb-3'>Influenceurs</h2>
@@ -22,7 +28,7 @@ export default function Influenceurs({ data, searchText, setSearchText }) {
         <div className='w-[95%] h-[160px] bg-white mx-auto flex flex-col rounded-lg p-3'>
              <div className='w-full flex justify-between h-16 text-black items-center mb-6'>
                     <span className="text-lg font-light ">Recherche d'influenceurs</span>
-                    <Button variant="contained" className='bg-green-700 hover:bg-green-600'>Rechercher</Button>
+                    <Button variant="contained" className='bg-green-700 hover:bg-green-600' onClick={handleSearch}>Rechercher</Button>
              </div>
              <div className='w-full flex justify-between h-1/2 text-gray-500 items-center'>
                 <SearchInput/>
@@ -52,7 +58,7 @@ export default function Influenceurs({ data, searchText, setSearchText }) {
             value="Nombre de vue"
             displayEmpty
           >
-            <MenuItem value={"Nombre de vue"}>JNombre de vue</MenuItem>
+            <MenuItem value={"Nombre de vue"}>Nombre de vue</MenuItem>
             <MenuItem value={"Nombre de vue"}>Nombre de vue</MenuItem>
 
                 </Select>

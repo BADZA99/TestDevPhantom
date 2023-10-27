@@ -15,6 +15,7 @@ import { useSearchStore } from '@/store';
 export default function Layout() {
   const searchText = useSearchStore((state) => state.searchText);
    const [todos, setTodos] = useState([]);
+   const [initialtodos, setInitialTodos] = useState([]);
   const [loading, setLoading] = useState(true);
    useEffect(() => {
     async function fetchTodos() {
@@ -22,6 +23,7 @@ export default function Layout() {
         const response = await fetch('/api/todos');
         const data = await response.json();
         setTodos(data);
+        setInitialTodos(data);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -31,6 +33,7 @@ export default function Layout() {
 
     fetchTodos();
   }, []);
+
   // console.log(todos)
   return (
     <div className="relative w-[100%] h-[100%] bg-[#f1f1f1]">
@@ -42,7 +45,7 @@ export default function Layout() {
         </div>
     </div>
     {/* sidebar */}
-    <div className="w-[15%] h-[1010px] absolute flex flex-col bg-white text-black items-center">
+    <div className="w-[15%] h-[1410px] absolute flex flex-col bg-white text-black items-center">
         <span className="pt-10 text-green-400 font-bold text-lg ">DevPantom</span>
 
         <ul className="flex flex-col w-[100%] pt-[40%] justify-center items-center text-lg">
@@ -59,7 +62,7 @@ export default function Layout() {
               Conversions</li>
         </ul>
 
-        <ul className="pt-96 w-[100%] flex flex-col justify-center items-center text-lg">
+        <ul className="pt-[700px] w-[100%] flex flex-col justify-center items-center text-lg">
             <li className="cursor-pointer w-[100%] pt-3 pb-3 pl-10 text-center hover:bg-green-50 hover:border-l-4 hover:border-l-green-600 flex items-center">
                 <MdSettings size={25} className='pr-[4px]'/>
               Parametres</li>
@@ -71,7 +74,7 @@ export default function Layout() {
         </ul>
 
     </div>
-    <Influenceurs/>
+    <Influenceurs setTodos={setTodos} searchText={searchText} data={todos} initialData={initialtodos} />
     <TabInfluenceurs data={todos} loading={loading} searchText={searchText}/>
 
       
